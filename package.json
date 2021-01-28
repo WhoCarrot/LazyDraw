@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "rm package-lock.json",
     "client": "browserify ./public/script/index.js -o ./public/dist/bundle.js && watchify ./public/script/index.js -o ./public/dist/bundle.js -v",
-    "start": "npm i && node ./server/index.js",
+    "start": "node ./server/index.js",
     "server-dev": "nodemon --watch server ./server/index.js"
   },
   "author": "Maurits van de Lagemaat",
