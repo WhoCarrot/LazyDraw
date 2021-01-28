@@ -13,20 +13,17 @@ const routerModule = ({app, server, io}) => {
         let currentBrush;
 
         socket.on('startStroke', brush => {
-            console.log('START STROKE', JSON.stringify(brush));
             currentBrush = brush;
 
             socket.broadcast.emit('startStroke', currentBrush);
         });
     
         socket.on('point', point => {
-            console.log('POINT', JSON.stringify(point));
 
             socket.broadcast.emit('point', point);
         });
     
         socket.on('endStroke', () => {
-            console.log('END STROKE');
 
             socket.broadcast.emit('endStroke');
         });
