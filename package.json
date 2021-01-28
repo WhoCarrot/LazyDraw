@@ -8,18 +8,14 @@
     "server": "node ./server/index.js",
     "server-dev": "nodemon --watch server ./server/index.js"
   },
-  "nodemonConfig": {
-    "ignore": [
-      "./server/data/database/*.json"
-    ]
-  },
-  "author": "",
+  "author": "Maurits van de Lagemaat",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "node-json-db": "^1.1.0",
     "socket.io": "^3.1.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "nodemon": "^2.0.7"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
