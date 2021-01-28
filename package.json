@@ -1,0 +1,44 @@
+{
+  "name": "tekenen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "browserify ./public/script/index.js -o ./public/dist/bundle.js && watchify ./public/script/index.js -o ./public/dist/bundle.js -v",
+    "server": "nodemon --watch server ./server/index.js"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "./server/data/database/*.json"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "node-json-db": "^1.1.0",
+    "socket.io": "^3.1.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "livereload": "^0.9.1",
+    "nodemon": "^2.0.7",
+    "watchify": "^3.11.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  }
+}
