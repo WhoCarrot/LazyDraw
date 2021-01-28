@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const path = require('path');
 const routes = require('./routes');
 const { server: { port } } = require('./config.json');
 
@@ -8,11 +9,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 app.use(bodyParser.json());
-app.use('/', express.static('../public'));
-
-app.use((req, res) => {
-    req.next();
-});
+app.use('/', express.static(path.join(__dirname, '..', 'public')));
 
 for (const route of Object.values(routes)) {
     const { endpoint, router } = route;
