@@ -11,8 +11,6 @@ app.use(bodyParser.json());
 app.use('/', express.static('../public'));
 
 app.use((req, res) => {
-    console.log(req.method, req.url);
-
     req.next();
 });
 
