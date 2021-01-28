@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "client": "browserify ./public/script/index.js -o ./public/dist/bundle.js && watchify ./public/script/index.js -o ./public/dist/bundle.js -v",
-    "server": "nodemon --watch server ./server/index.js"
+    "server": "node ./server/index.js",
+    "server-dev": "nodemon --watch server ./server/index.js"
   },
   "nodemonConfig": {
     "ignore": [
