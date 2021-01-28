@@ -1,8 +1,5 @@
 {
     "server": {
-        "port": 80
-    },
-    "database": {
-        "path": "data/database/db.json"
+        "port": 3000
     }
 }

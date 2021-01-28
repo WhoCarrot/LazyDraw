@@ -8,7 +8,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 app.use(bodyParser.json());
-app.use('/', express.static('public'))
+app.use('/', express.static('../public'));
 
 app.use((req, res) => {
     console.log(req.method, req.url);
