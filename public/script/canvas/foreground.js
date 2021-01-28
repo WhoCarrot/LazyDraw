@@ -89,6 +89,10 @@ function canvasForeground(sketch) {
         }
         console.log(sketch.keyCode, 'pressed!');
     };
+    
+    sketch.mouseWheel = (event) => {
+        lazyBrush.weight = Math.min(Math.max(lazyBrush.weight + event.delta / 100, 1), 25);
+    };
 
     this.startStroke = brush => {
         const { x, y } = brush.brush;
