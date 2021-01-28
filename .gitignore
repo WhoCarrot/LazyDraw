@@ -1,5 +1,8 @@
+secrets/*
+./secrets/
+**/secrets/
 .elasticbeanstalk/
-secrets/
+
 
 # Logs
 logs
