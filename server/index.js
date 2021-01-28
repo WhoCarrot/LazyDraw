@@ -22,4 +22,4 @@ for (const route of Object.values(routes)) {
     app.use(endpoint, router({app, server, io}));
 }
 
-server.listen(port, () => console.log(`Server listening at port ${port}`));
+server.listen(process.env.PORT || port, () => console.log(`Server listening at port ${port}`));
