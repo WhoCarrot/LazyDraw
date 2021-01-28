@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client": "browserify ./public/script/index.js -o ./public/dist/bundle.js && watchify ./public/script/index.js -o ./public/dist/bundle.js -v",
-    "server": "node ./server/index.js",
+    "start": "node ./server/index.js",
     "server-dev": "nodemon --watch server ./server/index.js"
   },
   "author": "Maurits van de Lagemaat",
