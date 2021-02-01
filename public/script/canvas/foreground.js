@@ -28,6 +28,10 @@ function canvasForeground(sketch) {
 
         this.io.listenHistory(this.drawHistory);
 
+        this.io.listenRoomCreated(roomId => {
+            console.log(roomId);
+        });
+
         this.io.listenClear(this.clearScreen);
 
         this.io.listenBrushToggle(enabled => {

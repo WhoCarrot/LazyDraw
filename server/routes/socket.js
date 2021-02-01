@@ -11,6 +11,7 @@ const routerModule = ({app, server, io}) => {
             socket.roomId = roomId;
             socket.room = rooms[roomId] = { strokes: [] };
             socket.join(roomId);
+            socket.emit('roomCreated', roomId);
             console.log(`Room(${roomId}) created by Client(${socket.id})`);
         });
 

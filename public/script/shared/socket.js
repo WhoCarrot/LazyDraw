@@ -48,6 +48,10 @@ class IoClient {
         this.io.emit('clear');
     }
 
+    listenRoomCreated(cb) {
+        this.io.on('roomCreated', cb);
+    }
+
     listenHistory(cb) {
         this.io.on('history', cb);
     }

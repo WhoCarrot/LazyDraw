@@ -19793,6 +19793,10 @@ function canvasForeground(sketch) {
 
         this.io.listenHistory(this.drawHistory);
 
+        this.io.listenRoomCreated(roomId => {
+            console.log(roomId);
+        });
+
         this.io.listenClear(this.clearScreen);
 
         this.io.listenBrushToggle(enabled => {
@@ -20390,6 +20394,10 @@ class IoClient {
     
     sendClear() {
         this.io.emit('clear');
+    }
+
+    listenRoomCreated(cb) {
+        this.io.on('roomCreated', cb);
     }
 
     listenHistory(cb) {
