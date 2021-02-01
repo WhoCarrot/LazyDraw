@@ -1,5 +1,5 @@
 const {
-    LazyPoint
+    LazyPoint, LazyBrush
 } = require('../lazybrush');
 
 const {
@@ -7,6 +7,8 @@ const {
     opponentBrush,
     IoClient
 } = require('../shared');
+
+const M = require('materialize-css');
 
 const {
     windowUtils: { getCanvasParent, calculateCanvasSize, preventContextMenu }
@@ -17,15 +19,23 @@ function canvasForeground(sketch) {
         preventContextMenu();
         const canvasParent = getCanvasParent('canvas-foreground');
         const { width, height } = calculateCanvasSize(canvasParent);
-        sketch.createCanvas(width, height).parent(canvasParent);
-        sketch.frameRate(144);
+        sketch.createCanvas(width, height, sketch.P2D).parent(canvasParent);
+        sketch.frameRate(0);
         sketch.smooth();
         sketch.noCursor();
 
         this.io = IoClient.getInstance();
 
+        this.io.listenHistory(this.drawHistory);
+
+        this.io.listenClear(this.clearScreen);
+
+        this.io.listenBrushToggle(enabled => {
+            if (enabled) M.toast({html: 'It\'s your turn!'});
+            lazyBrush.canDraw = enabled;
+        });
+
         this.io.listenStartStroke(brush => {
-            console.log(brush);
             opponentBrush.fromObject(brush);
             this.startStroke(opponentBrush);
         });
@@ -43,6 +53,8 @@ function canvasForeground(sketch) {
     };
 
     sketch.mousePressed = () => {
+        if (!lazyBrush.canDraw) return;
+
         switch (sketch.mouseButton) {
             case sketch.LEFT:
                 lazyBrush.erasing = false;
@@ -62,6 +74,8 @@ function canvasForeground(sketch) {
     };
 
     sketch.mouseDragged = () => {
+        if (!lazyBrush.canDraw) return;
+
         const { x, y } = lazyBrush.brush;
         if (!x || !y) return;
 
@@ -72,6 +86,8 @@ function canvasForeground(sketch) {
     };
 
     sketch.mouseReleased = () => {
+        if (!lazyBrush.canDraw) return;
+
         this.io.sendEndStroke();
         lazyBrush.erasing = false;
         sketch.noErase();
@@ -79,12 +95,15 @@ function canvasForeground(sketch) {
     };
 
     sketch.keyPressed = () => {
+        if (!lazyBrush.canDraw) return;
+
         switch(sketch.keyCode) {
             case 67:
                 lazyBrush.randomColor();
                 break;
             case 82:
-                sketch.clear();
+                this.io.sendClear();
+                this.clearScreen();
                 break;
         }
         console.log(sketch.keyCode, 'pressed!');
@@ -92,6 +111,24 @@ function canvasForeground(sketch) {
     
     sketch.mouseWheel = (event) => {
         lazyBrush.weight = Math.min(Math.max(lazyBrush.weight + event.delta / 100, 1), 25);
+    };
+
+    this.drawHistory = history => {
+        this.clearScreen();
+        for (const { brush, points } of history) {
+            opponentBrush = LazyBrush.fromObject(brush);
+            this.startStroke(opponentBrush);
+            for (const pnt of points) {
+                const { x, y } = pnt;
+                opponentBrush.brush.x = x;
+                opponentBrush.brush.y = y;
+                this.point(opponentBrush, x, y);
+            }
+        }
+    };
+
+    this.clearScreen = () => {
+        sketch.clear();
     };
 
     this.startStroke = brush => {
@@ -106,7 +143,7 @@ function canvasForeground(sketch) {
             sketch.erase();
             sketch.point(x, y);
         }
-    }
+    };
 
     this.point = brush => {
         const { x, y } = brush.brush;
@@ -126,12 +163,12 @@ function canvasForeground(sketch) {
 
         brush.lastPoint.x = x;
         brush.lastPoint.y = y;
-    }
+    };
 
     this.endStroke = brush => {
         brush.lastPoint = null;
         brush.erasing = false;
-    }
-}
+    };
+};
 
 module.exports = canvasForeground;

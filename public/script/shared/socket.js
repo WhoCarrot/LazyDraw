@@ -1,4 +1,5 @@
 const io = require('socket.io-client');
+const uuid = require('shortid');
 
 class IoClient {
     constructor() {
@@ -6,10 +7,22 @@ class IoClient {
             reconnection: true,
             rejectUnauthorized: false, 
             cors: {
-                origin: "http://localhost:3000",
+                origin: "http://localhost:8080",
                 methods: ["GET", "POST"]
             }
         });
+    }
+
+    joinRoom(roomId) {
+        this.io.emit('joinRoom', roomId);
+    }
+
+    createRoom(roomId = uuid.generate()) {
+        this.io.emit('createRoom', roomId);
+    }
+
+    sendClaimTurn() {
+        this.io.emit('claimTurn');
     }
 
     sendLocation(brush) {
@@ -29,6 +42,22 @@ class IoClient {
 
     sendEndStroke() {
         this.io.emit('endStroke');
+    }
+    
+    sendClear() {
+        this.io.emit('clear');
+    }
+
+    listenHistory(cb) {
+        this.io.on('history', cb);
+    }
+
+    listenClear(cb) {
+        this.io.on('clear', cb);
+    }
+
+    listenBrushToggle(cb) {
+        this.io.on('brushToggle', cb);
     }
 
     listenStartStroke(cb) {

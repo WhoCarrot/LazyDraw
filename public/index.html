@@ -11,6 +11,33 @@
 
 <body>
     <div class="row">
+        <div class="col s6 m6 l6">
+            <a class="waves-effect waves-light btn" id="create-room-button">Create Room</a>
+        </div>
+        <div class="col s6 m6 l6">
+            <div class="input-field col s6">
+              <input id="room-id-input" type="text">
+              <label for="room-id-input">Room ID</label>
+            </div>
+            <a class="waves-effect waves-light btn" id="join-room-button">Join Room</a>
+        </div>
+    </div>
+    <div class="row">
+        <a class="waves-effect waves-light btn" id="claim-turn-button">Claim Turn</a>
+
+        <!-- Modal Structure -->
+        <!-- <div id="room-modal" class="modal">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="row">
         <div class="col s2">
             <div class="players-section">
                 <div class="card">
@@ -60,7 +87,8 @@
                             <input type="text" placeholder="" />
                         </div>
                         <div class="col m2 s2">
-                            <button type="submit" class="btn chat-submit-button"><i class="material-icons">send</i></button>
+                            <button type="submit" class="btn chat-submit-button"><i
+                                    class="material-icons">send</i></button>
                         </div>
                         <div class="col m1 s1">&nbsp;</div>
                     </form>

@@ -9,6 +9,7 @@ class LazyBrush {
         this.maxRadius = maxRadius;
         this.minRadius = minRadius;
         this.isEnabled = enabled;
+        this.canDraw = false;
 
         this.color = new LazyColor(0, 0, 0, 360);
         this.weight = 5;
