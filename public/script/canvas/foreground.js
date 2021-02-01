@@ -114,9 +114,10 @@ function canvasForeground(sketch) {
     };
 
     this.drawHistory = history => {
+        console.log(history);
         this.clearScreen();
         for (const { brush, points } of history) {
-            opponentBrush = LazyBrush.fromObject(brush);
+            opponentBrush.fromObject(brush);
             this.startStroke(opponentBrush);
             for (const pnt of points) {
                 const { x, y } = pnt;
